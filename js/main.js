@@ -1,7 +1,23 @@
-import './data.js';
-import {getUpcomingAnnouncements} from './util.js';
+import {
+  TYPES_INFO
+} from './data.js';
 
-let vars = document.querySelector('.promo')
-console.log(vars);
+import {
+  getUpcomingAnnouncements,
+} from './util.js';
+
+import{
+  generateCard,
+  } from './templates.js';
+
+import {
+  typesAndPricePreview,
+  changeTime,
+} from './form.js';
+
 let upcomingAnnouncements = getUpcomingAnnouncements();
-// console.log(upcomingAnnouncements);
+
+generateCard(upcomingAnnouncements[0], TYPES_INFO);
+
+typesAndPricePreview(TYPES_INFO);
+changeTime();

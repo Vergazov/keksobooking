@@ -32,6 +32,34 @@ const TYPES = [
   'bungalow',
 ];
 
+const TYPES_INFO = [
+  {
+    type: 'flat',
+    analogy: 'Квартира',
+    min_price: 1000,
+  },
+  {
+    type: 'bungalow',
+    analogy: 'Бунгало',
+    min_price: 0,
+  },
+  {
+    type: 'house',
+    analogy: 'Дом',
+    min_price: 5000,
+  },
+  {
+    type: 'palace',
+    analogy: 'Дворец',
+    min_price: 10000,
+  },
+  {
+    type: 'hotel',
+    analogy: 'Отель',
+    min_price: 1000,
+  },
+];
+
 const CHECKIN = [
   '12:00',
   '13:00',
@@ -50,7 +78,7 @@ const FEATURES = [
   'parking',
   'washer',
   'elevator',
-  'conditioner'
+  'conditioner',
 ]
 
 const PHOTOS = [
@@ -63,6 +91,7 @@ export {
   TITLES,
   DESC,
   TYPES,
+  TYPES_INFO,
   CHECKIN,
   CHECKOUT,
   FEATURES,

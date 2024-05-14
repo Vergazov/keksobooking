@@ -82,6 +82,50 @@ const getUpcomingAnnouncements = function () {
   return upcomingAnnouncements;
 }
 
+const getHousingType = function(searchType, types){
+  var search = types.find((type) => {
+    if(searchType === type.type){
+      return type;
+    }
+  });
+  return search.analogy;
+}
+
+const addFeatures = function(feature, features){
+
+  for(var i = 0; i < features.length; i++){
+    if(features[i].className.includes('--' + feature)){
+      features[i].textContent = feature;
+    }
+  }
+}
+
+const deleteEmptyFeatures = function(features){
+  for(var i = 0; i < features.length; i++){
+    if(features[i].textContent == ''){
+      features[i].remove();
+    }
+  }
+}
+
+const addPhotos = function(cardPhotos,photos){
+  for(var i = 0; i < photos.length; i++){
+    var photo = document.createElement('img');
+    photo.classList.add('popup__photo');
+    photo.src = photos[i];
+    photo.width = 45;
+    photo.height = 30;
+    photo.alt = 'Фотография жилья';
+
+    cardPhotos.appendChild(photo);
+  }
+}
+
+
 export {
   getUpcomingAnnouncements,
+  getHousingType,
+  addFeatures,
+  deleteEmptyFeatures,
+  addPhotos,
 }
