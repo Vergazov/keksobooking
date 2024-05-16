@@ -35,7 +35,7 @@ const getRandomArrayValues = function (array) {
 
   let maxCountArray = array.length;
 
-  let randomArrayValues = new Array(getRandomIntInclusive(1, maxCountArray)).fill(null).map(() => {
+  let randomArrayValues = new Array(getRandomIntInclusive(0, maxCountArray)).fill(null).map(() => {
     return array[getRandomIntInclusive(0, maxCountArray - 1)];
   });
 
@@ -108,6 +108,13 @@ const deleteEmptyFeatures = function(features){
   }
 }
 
+const hidefeaturesIfNeed = function(featuresBlock){
+  // console.log(featuresBlock.children.length);
+  if(featuresBlock.children.length === 0){
+    featuresBlock.remove();
+  }
+}
+
 const addPhotos = function(cardPhotos,photos){
   for(var i = 0; i < photos.length; i++){
     var photo = document.createElement('img');
@@ -121,6 +128,28 @@ const addPhotos = function(cardPhotos,photos){
   }
 }
 
+const toggleState = function(){
+
+  let form = document.querySelector('.ad-form');
+  form.classList.toggle('ad-form--disabled');
+
+  let formItems = form.children;
+  for(let element of formItems){
+    element.toggleAttribute('disabled', '');
+  }
+
+  let filters = document.querySelector('.map__filters');
+  filters.classList.toggle('ad-form--disabled');
+
+  let filterItems = filters.children;
+  for(let filter of filterItems){
+    filter.toggleAttribute('disabled','');
+  }
+
+  let features = document.querySelector('.map__features');
+  features.classList.toggle('ad-form--disabled');
+}
+
 
 export {
   getUpcomingAnnouncements,
@@ -128,4 +157,6 @@ export {
   addFeatures,
   deleteEmptyFeatures,
   addPhotos,
+  toggleState,
+  hidefeaturesIfNeed,
 }

@@ -3,6 +3,7 @@ import {
   addFeatures,
   deleteEmptyFeatures,
   addPhotos,
+  hidefeaturesIfNeed,
 } from './util.js';
 
 var generateCard = function(card, types){
@@ -20,20 +21,22 @@ var generateCard = function(card, types){
   clonedItem.querySelector('.popup__description').textContent = card.offer.description;
   clonedItem.querySelector('.popup__avatar').src = card.author.avatar;
 
+  var featuresBlock = clonedItem.querySelector('.popup__features');
   var features = clonedItem.querySelectorAll('.popup__feature');
 
   for(var i = 0; i < card.offer.features.length; i++){
     addFeatures(card.offer.features[i], features);
   }
+
   deleteEmptyFeatures(features);
+  hidefeaturesIfNeed(featuresBlock);
 
   var cardPhotos = clonedItem.querySelector('.popup__photos');
   var photos = card.offer.photos;
 
   addPhotos(cardPhotos, photos);
 
-  var cardModule = document.querySelector('#map-canvas');
-  cardModule.appendChild(clonedItem);
+    return clonedItem;
 }
 
 export {generateCard}
