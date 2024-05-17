@@ -60,6 +60,14 @@ const TYPES_INFO = [
   },
 ];
 
+const IMAGE_TYPES = [
+  'image/png',
+  'image/jpeg',
+];
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+
 const CHECKIN = [
   '12:00',
   '13:00',
@@ -92,9 +100,12 @@ export {
   DESC,
   TYPES,
   TYPES_INFO,
+  IMAGE_TYPES,
   CHECKIN,
   CHECKOUT,
   FEATURES,
   PHOTOS,
+  MIN_TITLE_LENGTH,
+  MAX_TITLE_LENGTH,
 }
 

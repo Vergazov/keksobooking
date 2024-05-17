@@ -9,7 +9,7 @@ import {
 
 import{
   generateCard,
-  } from './templates.js';
+} from './templates.js';
 
 toggleState();
 
@@ -22,12 +22,12 @@ const map = L.map('map-canvas')
     lng: 139.7539,
   }, 10);
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(map);
 
   const mainPinIcon = L.icon({
     iconUrl: './leaflet/img/main-pin.svg',
@@ -48,8 +48,11 @@ const map = L.map('map-canvas')
 
   mainPinMarker.addTo(map);
 
+  let adress = document.querySelector('#address');
+
   mainPinMarker.on('moveend', (evt) => {
     console.log(evt.target.getLatLng());
+    adress.value = evt.target.getLatLng();
   });
 
   const pinIcon = L.icon({
@@ -61,7 +64,6 @@ const map = L.map('map-canvas')
   let upcomingAnnouncements = getUpcomingAnnouncements();
 
   upcomingAnnouncements.forEach((value)=> {
-    // console.log(value.offer.features);
     let lat = value.location.x;
     let lng = value.location.y;
 

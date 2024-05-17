@@ -150,6 +150,141 @@ const toggleState = function(){
   features.classList.toggle('ad-form--disabled');
 }
 
+const typesAndPricePreview = function(types){
+
+  var cardType = document.querySelector('#type');
+  var cardPrice = document.querySelector('#price');
+
+  var searchType = types.find((type) => {
+    if(type.type === cardType.value){
+      return type;
+    }
+  });
+
+  cardPrice.placeholder = searchType.min_price;
+  cardPrice.min = searchType.min_price;
+
+  cardType.addEventListener('change',() => {
+    var searchType = types.find((type) => {
+      if(type.type === cardType.value){
+        return type;
+      }
+    });
+
+    cardPrice.placeholder = searchType.min_price;
+    cardPrice.value = '';
+    cardPrice.min = searchType.min_price;
+  });
+}
+
+const changeTime = function(){
+  var timein = document.querySelector('#timein');
+  var timeout = document.querySelector('#timeout');
+
+  timein.addEventListener('change', ()=>{
+    timeout.value = timein.value;
+  });
+
+  timeout.addEventListener('change', ()=>{
+    timein.value = timeout.value;
+  });
+}
+
+const validateImage = function(image,imageContainerClass, types){
+
+  image.addEventListener('change',(evt)=>{
+    let isImageRight = types.find((type) =>{
+      if(type === evt.target.files[0].type){
+        return type;
+      }
+    });
+
+    let validateImageContainer = document.querySelector('.'+ imageContainerClass);
+    let validateImage = document.createElement('div');
+    validateImage.classList.add('validate_error');
+
+    if(!isImageRight){
+      validateImage.textContent = 'Вы выбрали файл с неверным форматом, пожалуйста выберите файл с изображением';
+      validateImage.setAttribute('style','color:red;');
+      validateImageContainer.appendChild(validateImage);
+    }else{
+      let validateError = document.querySelector('.validate_error');
+      validateError.remove();
+    }
+
+  });
+}
+
+const validateInputLength = function(input, min, max){
+
+  input.addEventListener('input', ()=>{
+
+    const titleLength = input.value.length;
+
+    if(titleLength < min) {
+      input.setCustomValidity('Еще ' + (min - titleLength) + ' симв.');
+    }else if(titleLength > max){
+      input.setCustomValidity('Удалите лишние ' + (titleLength - max) + ' симв.')
+    }else{
+      input.setCustomValidity('');
+    }
+
+    input.reportValidity();
+  });
+}
+
+const validatePrice = function(price){
+
+  price.addEventListener('input',() =>{
+
+    if(isNaN(price.value)){
+      price.setCustomValidity('Введите число')
+    }else if(price.value > 1000000){
+      price.setCustomValidity('Цена за ночь не должна быть выше 1 000 000 рублей')
+    }else{
+      price.setCustomValidity('');
+    }
+
+    price.reportValidity();
+
+  });
+}
+
+const setRoomsCapacity = function(){
+
+  let rooms = document.querySelector('#room_number');
+  let capacity = document.querySelector('#capacity');
+  let capacityItems = capacity.children;
+
+  for(let item of capacityItems){
+    if(rooms.value < Number(item.value)){
+      item.setAttribute('disabled','');
+    }else{
+      item.setAttribute('selected','');
+    }
+  }
+
+  rooms.addEventListener('change',(evt)=>{
+    for(let item of capacityItems){
+      if( Number(item.value) > evt.target.value){
+        item.setAttribute('disabled','');
+      }else{
+        item.removeAttribute('disabled','');
+        item.setAttribute('selected','');
+      }
+    }
+    if(evt.target.value == 100){
+      for(let item of capacityItems){
+        if(Number(item.value) < 100){
+          item.setAttribute('disabled','');
+        }else{
+          item.setAttribute('selected','');
+        }
+      }
+    }
+  });
+}
+
 
 export {
   getUpcomingAnnouncements,
@@ -159,4 +294,10 @@ export {
   addPhotos,
   toggleState,
   hidefeaturesIfNeed,
+  typesAndPricePreview,
+  changeTime,
+  validateImage,
+  validateInputLength,
+  validatePrice,
+  setRoomsCapacity,
 }
