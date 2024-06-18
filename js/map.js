@@ -61,21 +61,32 @@ L.tileLayer(
     iconAnchor: [26, 52],
   });
 
-  let upcomingAnnouncements = getUpcomingAnnouncements();
 
-  upcomingAnnouncements.forEach((value)=> {
-    let lat = value.location.x;
-    let lng = value.location.y;
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+  const {statusText, status} = response;
+  throw new Error(`${status} — ${statusText}`);
+}
 
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon: pinIcon
-      },
-  );
+let stateStatus = document.querySelector('.ad-form');
+if(!stateStatus.classList.contains('ad-form--disabled')){
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+    .then(checkStatus)
+    .then((response) => response.json())
+    .then((json) => json.forEach((value) => {
+      let lat = value.location.lat;
+      let lng = value.location.lng;
+      const marker = L.marker(
+        {
+          lat,
+          lng,
+        },
+        {
+          icon: pinIcon
+        },
+    );
     marker
     .addTo(map)
     .bindPopup(
@@ -84,4 +95,8 @@ L.tileLayer(
         keepInView: true,
       }
     );
-  });
+
+    }))
+    .catch((error) => console.log(error));
+}
+

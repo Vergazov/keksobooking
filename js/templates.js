@@ -7,7 +7,8 @@ import {
 } from './util.js';
 
 var generateCard = function(card, types){
-
+// console.log(card);
+// console.log(types);
   var cardTemplate = document.querySelector('#card').content;
   var cardItemTemplate = cardTemplate.querySelector('.popup');
   var clonedItem = cardItemTemplate.cloneNode(true);
@@ -24,15 +25,20 @@ var generateCard = function(card, types){
   var featuresBlock = clonedItem.querySelector('.popup__features');
   var features = clonedItem.querySelectorAll('.popup__feature');
 
-  for(var i = 0; i < card.offer.features.length; i++){
-    addFeatures(card.offer.features[i], features);
+  if(card.offer.features != undefined){
+    for(var i = 0; i < card.offer.features.length; i++){
+      addFeatures(card.offer.features[i], features);
+    }
   }
 
   deleteEmptyFeatures(features);
   hidefeaturesIfNeed(featuresBlock);
 
   var cardPhotos = clonedItem.querySelector('.popup__photos');
-  var photos = card.offer.photos;
+  var photos = '';
+  if(card.offer.photos !== undefined){
+    photos = card.offer.photos;
+  }
 
   addPhotos(cardPhotos, photos);
 
