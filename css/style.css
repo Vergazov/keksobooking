@@ -74,7 +74,7 @@ fieldset {
   display: flex;
   -webkit-box-align: end;
       -ms-flex-align: end;
-          align-items: flex-end;
+          /* align-items: flex-end; */
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -1025,4 +1025,11 @@ fieldset {
 
 .hidden {
   display: none;
+}
+
+.map__error_message {
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

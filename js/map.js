@@ -57,10 +57,20 @@ L.tileLayer(
 
   const pinIcon = L.icon({
     iconUrl: './leaflet/img/pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
+    iconSize: [40, 40],
+    iconAnchor: [26, 40],
   });
 
+const showError = () => {
+
+  let mapErrorMessage = document.createElement('div');
+  mapErrorMessage.classList.add('map__error_message');
+
+  let childElement = document.querySelector('.map__canvas');
+  let parentElement = childElement.parentNode;
+  mapErrorMessage.innerHTML = '<p>Произошла ошибка при загрузкe данных с сервера</p>';
+  parentElement.insertBefore(mapErrorMessage, childElement);
+}
 
 const checkStatus = (response) => {
   if (response.ok) {
@@ -71,6 +81,7 @@ const checkStatus = (response) => {
 }
 
 let stateStatus = document.querySelector('.ad-form');
+
 if(!stateStatus.classList.contains('ad-form--disabled')){
   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
     .then(checkStatus)
@@ -97,6 +108,6 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
     );
 
     }))
-    .catch((error) => console.log(error));
+    .catch((error) => showError());
 }
 
