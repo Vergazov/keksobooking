@@ -215,7 +215,9 @@ const validateImage = function(image,imageContainerClass, types){
   });
 }
 
-const validateInputLength = function(input, min, max){
+const validateInputLength = function(input, min, max, isValid){
+
+  isValid = false;
 
   input.addEventListener('input', ()=>{
 
@@ -229,7 +231,7 @@ const validateInputLength = function(input, min, max){
       input.setCustomValidity('');
     }
 
-    input.reportValidity();
+    // input.reportValidity();
   });
 }
 
