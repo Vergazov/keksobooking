@@ -193,31 +193,33 @@ const changeTime = function(){
 const validateImage = function(image,imageContainerClass, types){
 
   image.addEventListener('change',(evt)=>{
-    let isImageRight = types.find((type) =>{
-      if(type === evt.target.files[0].type){
+    let isImageRight = types.find((type) => {
+      if(type == evt.target.files[0].type){
         return type;
       }
     });
 
+
     let validateImageContainer = document.querySelector('.'+ imageContainerClass);
     let validateImage = document.createElement('div');
     validateImage.classList.add('validate_error');
+    validateImageContainer.appendChild(validateImage);
 
-    if(!isImageRight){
+    if(isImageRight === undefined){
+      console.log(isImageRight);
       validateImage.textContent = 'Вы выбрали файл с неверным форматом, пожалуйста выберите файл с изображением';
       validateImage.setAttribute('style','color:red;');
-      validateImageContainer.appendChild(validateImage);
+      image.setCustomValidity('Вы выбрали файл с неверным форматом, пожалуйста выберите файл с изображением');
     }else{
       let validateError = document.querySelector('.validate_error');
+      image.setCustomValidity('');
       validateError.remove();
     }
 
   });
 }
 
-const validateInputLength = function(input, min, max, isValid){
-
-  isValid = false;
+const validateInputLength = function(input, min, max){
 
   input.addEventListener('input', ()=>{
 
@@ -231,7 +233,7 @@ const validateInputLength = function(input, min, max, isValid){
       input.setCustomValidity('');
     }
 
-    // input.reportValidity();
+    input.reportValidity();
   });
 }
 
@@ -287,6 +289,19 @@ const setRoomsCapacity = function(){
   });
 }
 
+const showSuccessMessage = (response) => {
+  if(response.ok){
+    console.log(response);
+    alert('Форма успешно отправлена');
+    let form = document.querySelector('.ad-form');
+    let map =
+    form.reset();
+  }
+}
+
+const showErrorMessage = (error) => {
+  alert('Ошибка отправки данных на сервер ' + error)
+}
 
 export {
   getUpcomingAnnouncements,
@@ -302,4 +317,6 @@ export {
   validateInputLength,
   validatePrice,
   setRoomsCapacity,
+  showSuccessMessage,
+  showErrorMessage,
 }
