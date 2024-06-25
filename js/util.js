@@ -291,16 +291,56 @@ const setRoomsCapacity = function(){
 
 const showSuccessMessage = (response) => {
   if(response.ok){
-    console.log(response);
-    alert('Форма успешно отправлена');
+    let parent = document.querySelector('body');
+
+    let successMessageTemplate = document.querySelector('#success').content;
+    let successMessage = successMessageTemplate.querySelector('.success');
+    let clonedMessage = successMessage.cloneNode(true);
+
+    parent.appendChild(clonedMessage);
+
     let form = document.querySelector('.ad-form');
-    let map =
+    let filters = document.querySelector('.map__filters')
     form.reset();
+    filters.reset();
+
+
+    document.addEventListener('keydown', (evt) => {
+      if(evt.key === 'Escape'){
+        parent.removeChild(clonedMessage);
+      }
+    });
+
+    document.addEventListener('click', ()=> {
+      if(parent.contains(clonedMessage)){
+        parent.removeChild(clonedMessage);
+      }
+    });
+
   }
 }
 
 const showErrorMessage = (error) => {
-  alert('Ошибка отправки данных на сервер ' + error)
+  console.log(error);
+  let parent = document.querySelector('body');
+
+  let errorMessageTemplate = document.querySelector('#error').content;
+  let errorMessage = errorMessageTemplate.querySelector('.error');
+  let clonedMessage = errorMessage.cloneNode(true);
+
+  parent.appendChild(clonedMessage);
+
+  document.addEventListener('keydown', (evt) => {
+    if(evt.key === 'Escape'){
+      parent.removeChild(clonedMessage);
+    }
+  });
+
+  document.addEventListener('click', ()=> {
+    if(parent.contains(clonedMessage)){
+      parent.removeChild(clonedMessage);
+    }
+  });
 }
 
 export {

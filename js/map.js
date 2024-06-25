@@ -1,5 +1,4 @@
 import {
-  getUpcomingAnnouncements,
   toggleState,
 } from "./util.js";
 
@@ -29,37 +28,36 @@ L.tileLayer(
   },
 ).addTo(map);
 
-  const mainPinIcon = L.icon({
-    iconUrl: './leaflet/img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
+const mainPinIcon = L.icon({
+  iconUrl: './leaflet/img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
-  const mainPinMarker = L.marker(
-    {
-      lat: 35.6817,
-      lng: 139.7539,
-    },
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  );
+const mainPinMarker = L.marker(
+  {
+    lat: 35.6817,
+    lng: 139.7539,
+  },
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  },
+);
+mainPinMarker.addTo(map);
 
-  mainPinMarker.addTo(map);
+let adress = document.querySelector('#address');
 
-  let adress = document.querySelector('#address');
+mainPinMarker.on('moveend', (evt) => {
+  console.log(evt.target.getLatLng());
+  adress.value = evt.target.getLatLng();
+});
 
-  mainPinMarker.on('moveend', (evt) => {
-    console.log(evt.target.getLatLng());
-    adress.value = evt.target.getLatLng();
-  });
-
-  const pinIcon = L.icon({
-    iconUrl: './leaflet/img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [26, 40],
-  });
+const pinIcon = L.icon({
+  iconUrl: './leaflet/img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [26, 40],
+});
 
 const showError = () => {
 
@@ -111,3 +109,6 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
     .catch((error) => showError());
 }
 
+export {
+  mainPinMarker,
+}
