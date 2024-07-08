@@ -8,6 +8,10 @@ import {
   mainPinMarker,
 }from './map.js';
 
+const foo = async function(){
+  return 'Hello world';
+}
+
 let form = document.querySelector('.ad-form');
 let adress = document.querySelector('#address');
 let latlng = L.latLng(35.6817,139.7539);

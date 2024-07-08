@@ -1,5 +1,7 @@
 import {
   toggleState,
+  checkStatus,
+  cutToTen,
 } from "./util.js";
 
 import {
@@ -72,13 +74,6 @@ const showError = () => {
   parentElement.insertBefore(mapErrorMessage, childElement);
 }
 
-const checkStatus = (response) => {
-  if (response.ok) {
-    return response;
-  }
-  const {statusText, status} = response;
-  throw new Error(`${status} — ${statusText}`);
-}
 
 let stateStatus = document.querySelector('.ad-form');
 
@@ -86,6 +81,7 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
     .then(checkStatus)
     .then((response) => response.json())
+    .then(cutToTen)
     .then((json) => json.forEach((value) => {
       let lat = value.location.lat;
       let lng = value.location.lng;
@@ -113,4 +109,6 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
 
 export {
   mainPinMarker,
+  map,
+  pinIcon
 }

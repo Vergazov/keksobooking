@@ -1,4 +1,17 @@
-import {TITLES, DESC, TYPES, CHECKIN, CHECKOUT, FEATURES, PHOTOS } from './data.js';
+import {
+   TITLES,
+   DESC,
+   TYPES,
+   CHECKIN,
+   CHECKOUT,
+   FEATURES,
+   PHOTOS,
+} from './data.js';
+
+import {
+  map,
+  pinIcon,
+} from "./map.js";
 
 const getRandomIntInclusive = function (min, max) {
 
@@ -289,7 +302,7 @@ const setRoomsCapacity = function(){
   });
 }
 
-const showSuccessMessage = (response) => {
+const showSuccessMessage = function(response){
   if(response.ok){
     let parent = document.querySelector('body');
 
@@ -303,7 +316,6 @@ const showSuccessMessage = (response) => {
     let filters = document.querySelector('.map__filters')
     form.reset();
     filters.reset();
-
 
     document.addEventListener('keydown', (evt) => {
       if(evt.key === 'Escape'){
@@ -343,6 +355,58 @@ const showErrorMessage = (error) => {
   });
 }
 
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+  const {statusText, status} = response;
+  throw new Error(`${status} — ${statusText}`);
+}
+
+const cutToTen = function(json){
+  if(json.length > 10){
+    let trimed = json.slice(0,10);
+    return trimed;
+  }else{
+    return json;
+  }
+}
+
+const filtered = function(target){
+  return function(json){
+    let filtered = json.filter((value) => value.offer.type === target);
+    return filtered;
+  }
+}
+
+const removeOldMarkers = function(){
+  let panes = document.querySelectorAll('.leaflet-marker-icon');
+  panes.forEach((value) =>{
+    if(value.src !== 'http://localhost:82/keksobooking/leaflet/img/main-pin.svg'){
+    value.remove();
+    }
+  })
+
+}
+
+const render = function(target){
+  target.forEach((value) =>{
+    let lat = value.location.lat;
+      let lng = value.location.lng;
+      const marker = L.marker(
+        {
+          lat,
+          lng,
+        },
+        {
+          icon: pinIcon
+        },
+    );
+    marker
+    .addTo(map)
+  });
+}
+
 export {
   getUpcomingAnnouncements,
   getHousingType,
@@ -359,4 +423,9 @@ export {
   setRoomsCapacity,
   showSuccessMessage,
   showErrorMessage,
+  checkStatus,
+  cutToTen,
+  filtered,
+  removeOldMarkers,
+  render,
 }
