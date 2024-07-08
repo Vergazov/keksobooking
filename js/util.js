@@ -377,10 +377,42 @@ const cutToTen = function(json){
   }
 }
 
+//value.offer.price
+// value.offer.rooms
+// value.offer.guests
+
 const filtered = function(target){
   return function(json){
     let filtered = json.filter((value) => value.offer.type === target);
     return filtered;
+  }
+}
+
+const filtered1 = function(filters){
+
+  let filtered = [];
+  return function(json){
+    if(filters.type !== 'any'){
+      filtered = json.filter((value) => value.offer.type === filters.type);
+    }
+    if(filters.price !== 'any'){
+      filtered = filtered.filter((value) => value.offer.price === filters.price);
+    }
+  return filtered;
+  }
+}
+
+const filtered2 = function(filters){
+
+  let filtered = [];
+  return function(json){
+    filters.forEach((filter)=>{
+      if(filter !== 'any'){
+        filtered = json.filter((value) => value.offer.type === 'any');
+        // filtered = json.filter((value) => console.log(value));
+      }
+    });
+  return filtered;
   }
 }
 
@@ -441,6 +473,7 @@ export {
   checkStatus,
   cutToTen,
   filtered,
+  filtered1,
   removeOldMarkers,
   render,
   closePopup,

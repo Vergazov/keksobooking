@@ -76,9 +76,11 @@ const showError = () => {
 
 
 let stateStatus = document.querySelector('.ad-form');
+let markers = [];
+let currMarkers = [];
 
 if(!stateStatus.classList.contains('ad-form--disabled')){
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  currMarkers = fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
     .then(checkStatus)
     .then((response) => response.json())
     .then(cutToTen)
@@ -102,7 +104,8 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
         keepInView: true,
       }
     );
-
+    markers.push(marker);
+    return markers;
     }))
     .catch((error) => showError());
 }
@@ -110,5 +113,6 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
 export {
   mainPinMarker,
   map,
-  pinIcon
+  pinIcon,
+  currMarkers,
 }
