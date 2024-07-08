@@ -6,12 +6,17 @@ import {
    CHECKOUT,
    FEATURES,
    PHOTOS,
+   TYPES_INFO,
 } from './data.js';
 
 import {
   map,
   pinIcon,
 } from "./map.js";
+
+import{
+  generateCard,
+} from './templates.js';
 
 const getRandomIntInclusive = function (min, max) {
 
@@ -404,7 +409,17 @@ const render = function(target){
     );
     marker
     .addTo(map)
+    .bindPopup(
+      generateCard(value,TYPES_INFO),
+      {
+        keepInView: true,
+      }
+    );
   });
+}
+
+const closePopup = function() {
+  map.closePopup();
 }
 
 export {
@@ -428,4 +443,5 @@ export {
   filtered,
   removeOldMarkers,
   render,
+  closePopup,
 }
