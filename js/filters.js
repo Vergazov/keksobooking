@@ -1,94 +1,191 @@
 import {
   checkStatus,
   cutToTen,
-  filtered,
-  filtered1,
+  filter,
   render,
   removeOldMarkers,
   closePopup,
 } from "./util.js";
 
-import {
-  currMarkers,
-} from "./map.js";
 
 let currentFilters = {
+
   type:'',
   price:'',
   rooms:'',
   guests:'',
 
-  setType: function(type){
-    this.type = type
+  features: {
+    wifi: '',
+    dishwasher:'',
+    parking:'',
+    washer:'',
+    elevator:'',
+    conditioner:'',
   },
-  setPrice: function(price){
-    if(price >= 10000 && price <= 50000){}
-    this.price = price
+
+  setFilters: function(filters, features){
+    this.type = filters[0].value;
+    this.price = filters[1].value;
+    this.rooms = filters[2].value;
+    this.guests = filters[3].value;
+
+    this.features.wifi = features[0].checked;
+    this.features.dishwasher = features[1].checked;
+    this.features.parking = features[2].checked;
+    this.features.washer = features[3].checked;
+    this.features.elevator = features[4].checked;
+    this.features.conditioner = features[5].checked;
   },
-  setRooms: function(rooms){
-    this.rooms = rooms
-  },
-  setGuests: function(guests){
-    this.guests = guests
-  }
-}
-const setCurrentFilters = function(){
-  currentFilters.setType(filters[0].value);
-  currentFilters.setPrice(filters[1].value);
-  currentFilters.setRooms(filters[2].value);
-  currentFilters.setGuests(filters[3].value);
 }
 
-const getCurrentFilters = function(){
-  for(let i = 0; i < filters.length - 1; i++){
-    filtersValues.push(filters[i].value);
-  }
-  return filtersValues;
+let filtersBlock = document.querySelector('.map__filters');
+let filters = filtersBlock.children;
+let features = document.getElementsByClassName('map__checkbox');
+
+const setCurrentFilters = function(){
+  currentFilters.setFilters(filters,features);
 }
 
 let type = document.querySelector('#housing-type');
 let price = document.querySelector('#housing-price');
+let rooms = document.querySelector('#housing-rooms');
+let guests = document.querySelector('#housing-guests');
+let wifi = document.querySelector('#filter-wifi');
+let dishwasher = document.querySelector('#filter-dishwasher');
+let parking = document.querySelector('#filter-parking');
+let washer = document.querySelector('#filter-washer');
+let elevator = document.querySelector('#filter-elevator');
+let conditioner = document.querySelector('#filter-conditioner');
 
-let filtersBlock = document.querySelector('.map__filters');
-let filters = filtersBlock.children;
-
-
-// console.log(filtersValues);
-
-type.addEventListener('change', (evt) => {
+type.addEventListener('change', () => {
   closePopup();
   removeOldMarkers();
   setCurrentFilters();
-  // let filters = getCurrentFilters();
-  console.log(currentFilters);
 
-  let type = evt.target.value;
   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
   .then(checkStatus)
   .then((response) => response.json())
-  .then(filtered1(currentFilters))
-  // .then(filtered(type))
+  .then(filter(currentFilters))
   .then(cutToTen)
   .then(render)
-
 });
 
-price.addEventListener('change', (evt) => {
+price.addEventListener('change', () => {
   closePopup();
   removeOldMarkers();
   setCurrentFilters();
-  // let filters = getCurrentFilters();
-  console.log(currentFilters);
 
-  let price = evt.target.value;
   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
   .then(checkStatus)
   .then((response) => response.json())
-  .then(filtered1(currentFilters))
-  // .then(filtered(price))
+  .then(filter(currentFilters))
   .then(cutToTen)
   .then(render)
+});
 
+rooms.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+guests.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+wifi.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+dishwasher.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+parking.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+washer.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+elevator.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
+});
+
+conditioner.addEventListener('change', () => {
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
+
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  .then(checkStatus)
+  .then((response) => response.json())
+  .then(filter(currentFilters))
+  .then(cutToTen)
+  .then(render)
 });
 
 

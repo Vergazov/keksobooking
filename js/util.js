@@ -127,7 +127,6 @@ const deleteEmptyFeatures = function(features){
 }
 
 const hidefeaturesIfNeed = function(featuresBlock){
-  // console.log(featuresBlock.children.length);
   if(featuresBlock.children.length === 0){
     featuresBlock.remove();
   }
@@ -224,7 +223,6 @@ const validateImage = function(image,imageContainerClass, types){
     validateImageContainer.appendChild(validateImage);
 
     if(isImageRight === undefined){
-      console.log(isImageRight);
       validateImage.textContent = 'Вы выбрали файл с неверным форматом, пожалуйста выберите файл с изображением';
       validateImage.setAttribute('style','color:red;');
       image.setCustomValidity('Вы выбрали файл с неверным форматом, пожалуйста выберите файл с изображением');
@@ -338,7 +336,6 @@ const showSuccessMessage = function(response){
 }
 
 const showErrorMessage = (error) => {
-  console.log(error);
   let parent = document.querySelector('body');
 
   let errorMessageTemplate = document.querySelector('#error').content;
@@ -377,42 +374,149 @@ const cutToTen = function(json){
   }
 }
 
-//value.offer.price
-// value.offer.rooms
-// value.offer.guests
+const filter = function(currentFilters){
 
-const filtered = function(target){
+  let filtered = ['empty'];
   return function(json){
-    let filtered = json.filter((value) => value.offer.type === target);
-    return filtered;
-  }
-}
-
-const filtered1 = function(filters){
-
-  let filtered = [];
-  return function(json){
-    if(filters.type !== 'any'){
-      filtered = json.filter((value) => value.offer.type === filters.type);
+    if(currentFilters.type !== 'any'){
+      filtered = json.filter((value) => value.offer.type === currentFilters.type);
     }
-    if(filters.price !== 'any'){
-      filtered = filtered.filter((value) => value.offer.price === filters.price);
-    }
-  return filtered;
-  }
-}
+    if(currentFilters.price !== 'any'){
+      if(filtered[0] !== 'empty'){
 
-const filtered2 = function(filters){
-
-  let filtered = [];
-  return function(json){
-    filters.forEach((filter)=>{
-      if(filter !== 'any'){
-        filtered = json.filter((value) => value.offer.type === 'any');
-        // filtered = json.filter((value) => console.log(value));
+        if(currentFilters.price === 'middle'){
+          filtered = filtered.filter((value) => value.offer.price >= 10000 && value.offer.price <= 50000);
+        }
+        if(currentFilters.price === 'low'){
+          filtered = filtered.filter((value) => value.offer.price < 10000);
+        }
+        if(currentFilters.price === 'high'){
+          filtered = filtered.filter((value) => value.offer.price > 50000);
+        }
+      }else{
+        if(currentFilters.price === 'middle'){
+          filtered = json.filter((value) => value.offer.price >= 10000 && value.offer.price <= 50000);
+        }
+        if(currentFilters.price === 'low'){
+          filtered = json.filter((value) => value.offer.price < 10000);
+        }
+        if(currentFilters.price === 'high'){
+          filtered = json.filter((value) => value.offer.price > 50000);
+        }
       }
-    });
-  return filtered;
+    }
+    if(currentFilters.rooms !== 'any'){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => value.offer.rooms == currentFilters.rooms);
+      }else{
+        filtered = json.filter((value) => value.offer.rooms == currentFilters.rooms);
+      }
+    }
+    if(currentFilters.guests !== 'any'){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => value.offer.guests == currentFilters.guests);
+      }else{
+        filtered = json.filter((value) => value.offer.guests == currentFilters.guests);
+      }
+    }
+
+    if(currentFilters.features.wifi){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'wifi'});
+          }
+        });
+      }else{
+        filtered = json.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'wifi'});
+          }
+        });
+      }
+    }
+
+    if(currentFilters.features.dishwasher){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'dishwasher'});
+          }
+        });
+      }else{
+        filtered = json.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'dishwasher'});
+          }
+        });
+      }
+    }
+
+    if(currentFilters.features.parking){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'parking'});
+          }
+        });
+      }else{
+        filtered = json.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'parking'});
+          }
+        });
+      }
+    }
+
+    if(currentFilters.features.washer){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'washer'});
+          }
+        });
+      }else{
+        filtered = json.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'washer'});
+          }
+        });
+      }
+    }
+
+    if(currentFilters.features.elevator){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'elevator'});
+          }
+        });
+      }else{
+        filtered = json.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'elevator'});
+          }
+        });
+      }
+    }
+
+    if(currentFilters.features.conditioner){
+      if(filtered[0] !== 'empty'){
+        filtered = filtered.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'conditioner'});
+          }
+        });
+      }else{
+        filtered = json.filter((value) => {
+          if(value.offer.features){
+            return value.offer.features.find((value) => {return value === 'conditioner'});
+          }
+        });
+      }
+    }
+
+    return filtered;
   }
 }
 
@@ -472,8 +576,7 @@ export {
   showErrorMessage,
   checkStatus,
   cutToTen,
-  filtered,
-  filtered1,
+  filter,
   removeOldMarkers,
   render,
   closePopup,
