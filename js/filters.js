@@ -7,7 +7,6 @@ import {
   closePopup,
 } from "./util.js";
 
-
 let currentFilters = {
 
   type:'',
@@ -110,31 +109,47 @@ guests.addEventListener('change', () => {
   .then(render)
 });
 
-wifi.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
+const filterBy = function(){
+    closePopup();
+    removeOldMarkers();
+    setCurrentFilters();
+  
+    fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+    .then(checkStatus)
+    .then((response) => response.json())
+    .then(filter(currentFilters))
+    .then(cutToTen)
+    .then(render)
+}
 
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
+wifi.addEventListener('change', _.throttle(filterBy,2000));
+dishwasher.addEventListener('change', _.throttle(filterBy,2000));
 
-dishwasher.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
+// wifi.addEventListener('change', () => {
+//   closePopup();
+//   removeOldMarkers();
+//   setCurrentFilters();
 
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
+//   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+//   .then(checkStatus)
+//   .then((response) => response.json())
+//   .then(filter(currentFilters))
+//   .then(cutToTen)
+//   .then(render)
+// });
+
+// dishwasher.addEventListener('change', () => {
+//   closePopup();
+//   removeOldMarkers();
+//   setCurrentFilters();
+
+//   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+//   .then(checkStatus)
+//   .then((response) => response.json())
+//   .then(filter(currentFilters))
+//   .then(cutToTen)
+//   .then(render)
+// });
 
 parking.addEventListener('change', () => {
   closePopup();
