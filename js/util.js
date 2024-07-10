@@ -150,21 +150,38 @@ const toggleState = function(){
   let form = document.querySelector('.ad-form');
   form.classList.toggle('ad-form--disabled');
 
-  let formItems = form.children;
-  for(let element of formItems){
-    element.toggleAttribute('disabled', '');
-  }
+  document.querySelector('#avatar').setAttribute('disabled');
 
-  let filters = document.querySelector('.map__filters');
-  filters.classList.toggle('ad-form--disabled');
+  document.querySelector('#title').toggleAttribute('disabled');
+  document.querySelector('#address').toggleAttribute('disabled');
+  document.querySelector('#type').toggleAttribute('disabled');
+  document.querySelector('#price').toggleAttribute('disabled');
+  document.querySelector('#timein').toggleAttribute('disabled');
+  document.querySelector('#timeout').toggleAttribute('disabled');
+  document.querySelector('#room_number').toggleAttribute('disabled');
+  document.querySelector('#capacity').toggleAttribute('disabled');
 
-  let filterItems = filters.children;
-  for(let filter of filterItems){
-    filter.toggleAttribute('disabled','');
-  }
+  document.querySelector('#images').setAttribute('disabled');
 
-  let features = document.querySelector('.map__features');
-  features.classList.toggle('ad-form--disabled');
+
+  let featuresForm = document.querySelectorAll('input[name="features"]');
+
+  featuresForm.forEach((value)=>{
+    value.toggleAttribute('disabled');
+  })
+  document.querySelector('#description').toggleAttribute('disabled');
+
+
+  // let filters = document.querySelector('.map__filters');
+  // filters.classList.toggle('ad-form--disabled');
+
+  // let filterItems = filters.children;
+  // for(let filter of filterItems){
+  //   filter.toggleAttribute('disabled','');
+  // }
+
+  // let features = document.querySelector('.map__features');
+  // features.classList.toggle('ad-form--disabled');
 }
 
 const typesAndPricePreview = function(types){

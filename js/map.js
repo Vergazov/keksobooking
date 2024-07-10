@@ -12,7 +12,7 @@ import{
   generateCard,
 } from './templates.js';
 
-toggleState();
+// toggleState();
 
 const map = L.map('map-canvas')
 .on('load', () => {
