@@ -95,6 +95,8 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ]
 
+const SERVER_URL = 'https://23.javascript.htmlacademy.pro/keksobooking/data';
+
 export {
   TITLES,
   DESC,
@@ -107,5 +109,6 @@ export {
   PHOTOS,
   MIN_TITLE_LENGTH,
   MAX_TITLE_LENGTH,
+  SERVER_URL,
 }
 

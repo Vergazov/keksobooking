@@ -7,6 +7,7 @@ import {
   closePopup,
 } from "./util.js";
 
+
 let currentFilters = {
 
   type:'',
@@ -46,161 +47,21 @@ const setCurrentFilters = function(){
   currentFilters.setFilters(filters,features);
 }
 
-let type = document.querySelector('#housing-type');
-let price = document.querySelector('#housing-price');
-let rooms = document.querySelector('#housing-rooms');
-let guests = document.querySelector('#housing-guests');
-let wifi = document.querySelector('#filter-wifi');
-let dishwasher = document.querySelector('#filter-dishwasher');
-let parking = document.querySelector('#filter-parking');
-let washer = document.querySelector('#filter-washer');
-let elevator = document.querySelector('#filter-elevator');
-let conditioner = document.querySelector('#filter-conditioner');
-
-type.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
-price.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
-rooms.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
-guests.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
 const filterBy = function(){
     closePopup();
     removeOldMarkers();
     setCurrentFilters();
-  
+
     fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
     .then(checkStatus)
     .then((response) => response.json())
     .then(filter(currentFilters))
     .then(cutToTen)
     .then(render)
+
 }
 
-wifi.addEventListener('change', _.throttle(filterBy,2000));
-dishwasher.addEventListener('change', _.throttle(filterBy,2000));
+filtersBlock.addEventListener('change', _.throttle(filterBy,500));
 
-// wifi.addEventListener('change', () => {
-//   closePopup();
-//   removeOldMarkers();
-//   setCurrentFilters();
-
-//   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-//   .then(checkStatus)
-//   .then((response) => response.json())
-//   .then(filter(currentFilters))
-//   .then(cutToTen)
-//   .then(render)
-// });
-
-// dishwasher.addEventListener('change', () => {
-//   closePopup();
-//   removeOldMarkers();
-//   setCurrentFilters();
-
-//   fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-//   .then(checkStatus)
-//   .then((response) => response.json())
-//   .then(filter(currentFilters))
-//   .then(cutToTen)
-//   .then(render)
-// });
-
-parking.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
-washer.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
-elevator.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
-
-conditioner.addEventListener('change', () => {
-  closePopup();
-  removeOldMarkers();
-  setCurrentFilters();
-
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
-  .then(checkStatus)
-  .then((response) => response.json())
-  .then(filter(currentFilters))
-  .then(cutToTen)
-  .then(render)
-});
 
 
