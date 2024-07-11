@@ -389,6 +389,8 @@ const filter = function(currentFilters){
   return function(json){
     if(currentFilters.type !== 'any'){
       filtered = json.filter((value) => value.offer.type === currentFilters.type);
+    }else{
+      filtered = json;
     }
     if(currentFilters.price !== 'any'){
       if(filtered[0] !== 'empty'){
