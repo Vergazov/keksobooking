@@ -5,6 +5,7 @@ import {
   render,
   removeOldMarkers,
   closePopup,
+  toggleFilterState,
 } from "./util.js";
 
 
@@ -58,7 +59,6 @@ const filterBy = function(){
     .then(filter(currentFilters))
     .then(cutToTen)
     .then(render)
-
 }
 
 filtersBlock.addEventListener('change', _.throttle(filterBy,500));

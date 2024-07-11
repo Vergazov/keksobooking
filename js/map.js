@@ -1,5 +1,6 @@
 import {
-  toggleState,
+  toggleFormState,
+  toggleFilterState,
   checkStatus,
   cutToTen,
 } from "./util.js";
@@ -12,11 +13,12 @@ import{
   generateCard,
 } from './templates.js';
 
-// toggleState();
+toggleFormState();
+toggleFilterState();
 
 const map = L.map('map-canvas')
 .on('load', () => {
-  toggleState();
+  toggleFormState();
 })
   .setView({
     lat: 35.6817,
@@ -108,6 +110,8 @@ if(!stateStatus.classList.contains('ad-form--disabled')){
     return markers;
     }))
     .catch((error) => showError());
+
+    toggleFilterState();
 }
 
 export {

@@ -145,43 +145,35 @@ const addPhotos = function(cardPhotos,photos){
   }
 }
 
-const toggleState = function(){
+const toggleFormState = function(){
 
-  let form = document.querySelector('.ad-form');
-  form.classList.toggle('ad-form--disabled');
+  document.querySelector('.ad-form').classList.toggle('ad-form--disabled');
+  document.querySelector('.ad-form-header').toggleAttribute('disabled');
 
-  document.querySelector('#avatar').setAttribute('disabled');
+  let adFormEl = document.querySelectorAll('.ad-form__element');
+  adFormEl.forEach((value)=>{
+    value.toggleAttribute('disabled');
+  })
 
-  document.querySelector('#title').toggleAttribute('disabled');
-  document.querySelector('#address').toggleAttribute('disabled');
-  document.querySelector('#type').toggleAttribute('disabled');
-  document.querySelector('#price').toggleAttribute('disabled');
-  document.querySelector('#timein').toggleAttribute('disabled');
-  document.querySelector('#timeout').toggleAttribute('disabled');
-  document.querySelector('#room_number').toggleAttribute('disabled');
-  document.querySelector('#capacity').toggleAttribute('disabled');
-
-  document.querySelector('#images').setAttribute('disabled');
-
-
-  let featuresForm = document.querySelectorAll('input[name="features"]');
-
+  let featuresForm = document.querySelectorAll('.feature__checkbox');
   featuresForm.forEach((value)=>{
     value.toggleAttribute('disabled');
   })
-  document.querySelector('#description').toggleAttribute('disabled');
+}
 
+const toggleFilterState = function(){
 
-  // let filters = document.querySelector('.map__filters');
-  // filters.classList.toggle('ad-form--disabled');
+  document.querySelector('.map__filters').classList.toggle('ad-form--disabled');
 
-  // let filterItems = filters.children;
-  // for(let filter of filterItems){
-  //   filter.toggleAttribute('disabled','');
-  // }
+  let filters = document.querySelectorAll('.map__filter');
+  filters.forEach((value)=>{
+    value.toggleAttribute('disabled');
+  });
 
-  // let features = document.querySelector('.map__features');
-  // features.classList.toggle('ad-form--disabled');
+  let features = document.querySelectorAll('.map__checkbox');
+  features.forEach((value)=>{
+    value.toggleAttribute('disabled');
+  });
 }
 
 const typesAndPricePreview = function(types){
@@ -581,7 +573,8 @@ export {
   addFeatures,
   deleteEmptyFeatures,
   addPhotos,
-  toggleState,
+  toggleFormState,
+  toggleFilterState,
   hidefeaturesIfNeed,
   typesAndPricePreview,
   changeTime,
