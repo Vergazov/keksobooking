@@ -33,7 +33,7 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '.././leaflet/img/main-pin.svg',
+  iconUrl: './leaflet/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -55,7 +55,6 @@ let adress = document.querySelector('#address');
 adress.value = mainPinMarker.getLatLng();
 
 mainPinMarker.on('moveend', (evt) => {
-  console.log(evt.target.getLatLng());
   adress.value = evt.target.getLatLng();
 });
 

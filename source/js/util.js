@@ -534,7 +534,8 @@ const filter = function(currentFilters){
 const removeOldMarkers = function(){
   let panes = document.querySelectorAll('.leaflet-marker-icon');
   panes.forEach((value) =>{
-    if(value.src !== 'http://localhost:82/keksobooking/leaflet/img/main-pin.svg'){
+    console.log(value.src.indexOf('main-pin.svg'));
+    if(value.src.indexOf('main-pin.svg') == -1){
     value.remove();
     }
   })
