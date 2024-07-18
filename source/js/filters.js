@@ -4,10 +4,8 @@ import {
   filter,
   render,
   removeOldMarkers,
-  closePopup,
-  toggleFilterState,
-} from "./util.js";
-
+  closePopup
+} from './util.js';
 
 let currentFilters = {
 
@@ -49,11 +47,11 @@ const setCurrentFilters = function(){
 }
 
 const filterBy = function(){
-    closePopup();
-    removeOldMarkers();
-    setCurrentFilters();
+  closePopup();
+  removeOldMarkers();
+  setCurrentFilters();
 
-    fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
     .then(checkStatus)
     .then((response) => response.json())
     .then(filter(currentFilters))

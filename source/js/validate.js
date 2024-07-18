@@ -1,18 +1,18 @@
 import {
+  TYPES_INFO,
+  IMAGE_TYPES,
+  MIN_TITLE_LENGTH,
+  MAX_TITLE_LENGTH
+} from './data.js';
+
+import {
   typesAndPricePreview,
   changeTime,
   validateImage,
   validateInputLength,
   validatePrice,
-  setRoomsCapacity,
+  setRoomsCapacity
 } from './util.js';
-
-import {
-  TYPES_INFO,
-  IMAGE_TYPES,
-  MIN_TITLE_LENGTH,
-  MAX_TITLE_LENGTH,
-} from './data.js';
 
 let avatarImage = document.querySelector('#avatar');
 validateImage(avatarImage,'ad-form-header', IMAGE_TYPES);

@@ -1,25 +1,32 @@
 import {
+  DEFAULT_COORDINATES,
+  URLS
+} from './data.js';
+
+import {
   toggleFormState,
   toggleFilterState,
   checkStatus,
   cutToTen,
-} from "./util.js";
+  render
+} from './util.js';
 
-import {
-  TYPES_INFO
-} from './data.js';
+import L from './../../build/leaflet/leaflet/leaflet';
 
-import{
-  generateCard,
-} from './templates.js';
+const resetLatLng = function(defCoordinates){
+  let latlng = L.latLng(defCoordinates.lat,defCoordinates.lng);
+  let address = document.querySelector('#address');
+  mainPinMarker.setLatLng(latlng);
+  address.value = mainPinMarker.getLatLng();
+}
 
 toggleFormState();
 toggleFilterState();
 
 const map = L.map('map-canvas')
-.on('load', () => {
-  toggleFormState();
-})
+  .on('load', () => {
+    toggleFormState();
+  })
   .setView({
     lat: 35.6817,
     lng: 139.7539,
@@ -40,8 +47,8 @@ const mainPinIcon = L.icon({
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.6817,
-    lng: 139.7539,
+    lat: DEFAULT_COORDINATES.lat,
+    lng: DEFAULT_COORDINATES.lng,
   },
   {
     draggable: true,
@@ -51,7 +58,6 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 let adress = document.querySelector('#address');
-
 adress.value = mainPinMarker.getLatLng();
 
 mainPinMarker.on('moveend', (evt) => {
@@ -75,47 +81,21 @@ const showError = () => {
   parentElement.insertBefore(mapErrorMessage, childElement);
 }
 
-
 let stateStatus = document.querySelector('.ad-form');
-let markers = [];
-let currMarkers = [];
 
 if(!stateStatus.classList.contains('ad-form--disabled')){
-  currMarkers = fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  fetch(URLS.getMarkersUrl)
     .then(checkStatus)
     .then((response) => response.json())
     .then(cutToTen)
-    .then((json) => json.forEach((value) => {
-      let lat = value.location.lat;
-      let lng = value.location.lng;
-      const marker = L.marker(
-        {
-          lat,
-          lng,
-        },
-        {
-          icon: pinIcon
-        },
-    );
-    marker
-    .addTo(map)
-    .bindPopup(
-      generateCard(value,TYPES_INFO),
-      {
-        keepInView: true,
-      }
-    );
-    markers.push(marker);
-    return markers;
-    }))
-    .catch((error) => showError());
+    .then((json) => render(json))
+    .catch(() => showError());
 
-    toggleFilterState();
+  toggleFilterState();
 }
 
 export {
-  mainPinMarker,
   map,
   pinIcon,
-  currMarkers,
+  resetLatLng
 }

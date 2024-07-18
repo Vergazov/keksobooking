@@ -1,34 +1,29 @@
+import {
+  DEFAULT_COORDINATES,
+  URLS
+}from './data.js';
 
 import {
   showSuccessMessage,
-  showErrorMessage,
+  showErrorMessage
 } from './util.js';
 
 import {
-  mainPinMarker,
+  resetLatLng
 }from './map.js';
 
-const foo = async function(){
-  return 'Hello world';
-}
-
 let form = document.querySelector('.ad-form');
-let adress = document.querySelector('#address');
-let latlng = L.latLng(35.6817,139.7539);
 
 form.addEventListener('submit', (evt) => {
-evt.preventDefault();
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking', {
+  evt.preventDefault();
+  fetch(URLS.sendPostUrl, {
     method: 'POST',
-    body: new FormData(form)
+    body: new FormData(form),
   })
-  .then(showSuccessMessage)
-  .then(() => {
-    mainPinMarker.setLatLng(latlng);
-    adress.value = mainPinMarker.getLatLng();
+    .then(showSuccessMessage)
+    .then(resetLatLng(DEFAULT_COORDINATES))
+    .catch(showErrorMessage)
 
-  })
-  .catch(showErrorMessage)
 });
 
 let resetButton = document.querySelector('.ad-form__reset');
@@ -37,6 +32,5 @@ resetButton.addEventListener('click', () => {
   let filters = document.querySelector('.map__filters')
   form.reset();
   filters.reset();
-  adress.value = mainPinMarker.setLatLng(latlng);
-  adress.value = mainPinMarker.getLatLng();
+  resetLatLng(DEFAULT_COORDINATES);
 });
