@@ -7,7 +7,7 @@ import {
   pinIcon
 } from './map.js';
 
-// генерация балуна
+import L from './../../build/leaflet/leaflet/leaflet';
 
 const getHousingType = function(searchType, types){
   let search = types.find((type) => {
@@ -90,9 +90,7 @@ let generateCard = function(card, types){
 
   return clonedItem;
 }
-//
 
-// включение/выключение формы и фильтров
 const toggleFormState = function(){
 
   document.querySelector('.ad-form').classList.toggle('ad-form--disabled');
@@ -125,9 +123,7 @@ const toggleFilterState = function(){
     value.toggleAttribute('disabled');
   });
 }
-//
 
-// методы относящиеся к форме в т.ч. валидация
 const typesAndPricePreview = function(types){
 
   let cardType = document.querySelector('#type');
@@ -318,9 +314,6 @@ const showErrorMessage = () => {
     }
   });
 }
-//
-
-// методы относящиеся к карте
 
 const checkStatus = (response) => {
   if (response.ok) {
@@ -422,6 +415,17 @@ const render = function(target){
   });
 }
 
+const showError = () => {
+
+  let mapErrorMessage = document.createElement('div');
+  mapErrorMessage.classList.add('map__error_message');
+
+  let childElement = document.querySelector('.map__canvas');
+  let parentElement = childElement.parentNode;
+  mapErrorMessage.innerHTML = '<p>Произошла ошибка при загрузкe данных с сервера</p>';
+  parentElement.insertBefore(mapErrorMessage, childElement);
+}
+
 const closePopup = function() {
   map.closePopup();
 }
@@ -448,5 +452,6 @@ export {
   filter,
   removeOldMarkers,
   render,
-  closePopup
+  closePopup,
+  showError
 }

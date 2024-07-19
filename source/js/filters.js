@@ -2,10 +2,14 @@ import {
   checkStatus,
   cutToTen,
   filter,
-  render,
   removeOldMarkers,
-  closePopup
+  closePopup,
+  render
 } from './util.js';
+
+import {
+  URLS
+} from './data.js';
 
 let currentFilters = {
 
@@ -45,13 +49,12 @@ let features = document.getElementsByClassName('map__checkbox');
 const setCurrentFilters = function(){
   currentFilters.setFilters(filters,features);
 }
-
 const filterBy = function(){
   closePopup();
   removeOldMarkers();
   setCurrentFilters();
 
-  fetch('https://23.javascript.htmlacademy.pro/keksobooking/data')
+  fetch(URLS.getMarkersUrl)
     .then(checkStatus)
     .then((response) => response.json())
     .then(filter(currentFilters))

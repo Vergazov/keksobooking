@@ -8,7 +8,8 @@ import {
   toggleFilterState,
   checkStatus,
   cutToTen,
-  render
+  render,
+  showError
 } from './util.js';
 
 import L from './../../build/leaflet/leaflet/leaflet';
@@ -69,17 +70,6 @@ const pinIcon = L.icon({
   iconSize: [40, 40],
   iconAnchor: [26, 40],
 });
-
-const showError = () => {
-
-  let mapErrorMessage = document.createElement('div');
-  mapErrorMessage.classList.add('map__error_message');
-
-  let childElement = document.querySelector('.map__canvas');
-  let parentElement = childElement.parentNode;
-  mapErrorMessage.innerHTML = '<p>Произошла ошибка при загрузкe данных с сервера</p>';
-  parentElement.insertBefore(mapErrorMessage, childElement);
-}
 
 let stateStatus = document.querySelector('.ad-form');
 
